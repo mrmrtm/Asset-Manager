@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign in — MyApp</title>
+
+  <style>
+    :root{
+      --card-width: 420px;
+      --accent: #1565c0; /* change to your brand color */
+      --bg-overlay: rgba(0,0,0,0.30);
+      --card-radius: 8px;
+      --text: #222;
+    }
+
+    /* Reset-ish */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background:
+        linear-gradient(var(--bg-overlay),var(--bg-overlay)),
+        url('https://images.unsplash.com/photo-1501769214405-5e86c9d6a9b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1650&q=80') center/cover no-repeat;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+
+    .card{
+      width:var(--card-width);
+      background: #fff;
+      border-radius:var(--card-radius);
+      box-shadow:0 10px 30px rgba(0,0,0,0.18);
+      padding:28px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+    }
+    .logo{
+      height:36px;
+      width:36px;
+      border-radius:6px;
+      background:linear-gradient(135deg,#4fc3f7,#0288d1);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:700;
+      font-size:16px;
+      flex-shrink:0;
+    }
+    h1{
+      margin:0;
+      font-size:20px;
+      font-weight:600;
+    }
+    p.subtitle{
+      margin:8px 0 18px 0;
+      color:#555;
+      font-size:13px;
+    }
+
+    label{
+      display:block;
+      font-size:13px;
+      margin-bottom:6px;
+      color:#333;
+    }
+
+    input[type="text"], input[type="password"]{
+      width:100%;
+      padding:10px 12px;
+      border-radius:6px;
+      border:1px solid #d6d6d6;
+      font-size:15px;
+      margin-bottom:12px;
+    }
+
+    .help{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:18px;
+      font-size:13px;
+      color:#555;
+    }
+
+    .btn{
+      display:inline-block;
+      width:100%;
+      padding:11px 14px;
+      border:none;
+      border-radius:6px;
+      background:var(--accent);
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    .muted{
+      margin-top:14px;
+      font-size:13px;
+      color:#666;
+      text-align:center;
+    }
+
+    a.link{
+      color:var(--accent);
+      text-decoration:none;
+    }
+
+    /* small screens */
+    @media (max-width:480px){
+      body{padding:18px}
+      .card{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="signin-title">
+    <div class="brand" aria-hidden="true">
+      <div class="logo">MA</div> <!-- Your initials / small brand mark -->
+      <div>
+        <h1 id="signin-title">Sign in to MyApp</h1>
+        <div style="font-size:12px;color:#666">Access your dashboard and settings</div>
+      </div>
+    </div>
+
+    <p class="subtitle">Enter your account email to continue.</p>
+
+    <form id="signin-form" autocomplete="on" onsubmit="handleSubmit(event)">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="text" inputmode="email" autocomplete="email" required />
+
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required />
+
+      <div class="help">
+        <label style="display:flex;gap:8px;align-items:center;font-size:13px">
+          <input type="checkbox" id="remember" name="remember" /> <span>Remember me</span>
+        </label>
+        <a href="#" class="link">Need help?</a>
+      </div>
+
+      <button type="submit" class="btn">Sign in</button>
+
+      <p class="muted">
+        Don't have an account? <a class="link" href="#">Create one</a>
+      </p>
+    </form>
+  </main>
+
+  <script>
+    // NOTE: This demo only shows how to design the UI.
+    // Do NOT collect real passwords without a secure server and privacy policy.
+    function handleSubmit(e){
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      // In a real app, call a secure server / authentication provider.
+      // Here we just show a friendly message.
+      alert('Demo: sign-in attempted for: ' + email + '\\nThis demo does NOT send credentials anywhere.');
+    }
+  </script>
+</body>
+</html>
