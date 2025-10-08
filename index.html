@@ -113,4 +113,98 @@
       </div>
 
       <div class="help">
-        <label style="display:fl
+        <label style="display:flex;gap:8px;align-items:center;font-size:13px">
+          <input type="checkbox" id="remember" name="remember" /> <span>Remember me</span>
+        </label>
+        <a href="#" class="link">Need help?</a>
+      </div>
+
+      <button id="submit-btn" type="submit" class="btn">Sign in</button>
+
+      <p class="muted">
+        Don't have an account? <a class="link" href="#">Create one</a>
+      </p>
+
+      <div id="form-message" class="muted" role="status" aria-live="polite" style="margin-top:10px"></div>
+    </form>
+  </main>
+
+  <script>
+    // Utilities
+    const qs = (sel, el = document) => el.querySelector(sel);
+
+    // Restore remember-me state
+    (function initRemember() {
+      try {
+        const saved = localStorage.getItem('demoRememberMe');
+        if (saved === 'true') qs('#remember').checked = true;
+      } catch (_) {}
+    })();
+
+    // Toggle password visibility
+    qs('#toggle-pw').addEventListener('click', () => {
+      const pw = qs('#password');
+      const btn = qs('#toggle-pw');
+      const isShow = pw.type === 'password';
+      pw.type = isShow ? 'text' : 'password';
+      btn.textContent = isShow ? 'Hide' : 'Show';
+      btn.setAttribute('aria-pressed', String(isShow));
+      pw.focus();
+    });
+
+    // Validation helpers
+    function showError(id, msg) { qs('#' + id).textContent = msg || ''; }
+    function validateEmail(value) {
+      // Use browser validity first; fallback simple pattern
+      if (!value) return 'Email is required.';
+      const el = qs('#email');
+      if (el && !el.checkValidity()) return 'Please enter a valid email address.';
+      const basic = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!basic.test(value)) return 'Please enter a valid email address.';
+      return '';
+    }
+    function validatePassword(value) {
+      if (!value) return 'Password is required.';
+      return '';
+    }
+
+    // Submit handler
+    qs('#signin-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = qs('#email').value.trim();
+      const password = qs('#password').value;
+
+      // Clear previous errors
+      showError('email-error', '');
+      showError('password-error', '');
+      qs('#form-message').textContent = '';
+
+      // Validate
+      const emailErr = validateEmail(email);
+      const pwErr = validatePassword(password);
+      if (emailErr || pwErr) {
+        if (emailErr) showError('email-error', emailErr);
+        if (pwErr) showError('password-error', pwErr);
+        return;
+      }
+
+      // Persist remember-me (demo only)
+      try { localStorage.setItem('demoRememberMe', qs('#remember').checked ? 'true' : 'false'); } catch (_) {}
+
+      // Demo "submit" UX
+      const btn = qs('#submit-btn');
+      const prevLabel = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
+
+      // Simulate async work (demo only)
+      setTimeout(() => {
+        alert('Demo: sign-in attempted for: ' + email + '\nThis demo does NOT send credentials anywhere.');
+        qs('#form-message').textContent = 'Demo complete — no network request was made.';
+        btn.disabled = false;
+        btn.textContent = prevLabel;
+      }, 600);
+    });
+  </script>
+</body>
+</html>
