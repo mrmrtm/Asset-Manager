@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting to GitHub...</title>
+
+  <!-- Optional: your analytics script -->
+  <!-- Example: Plausible -->
+  <script defer data-domain="mrmrtm.github.io" src="https://plausible.io/js/script.js"></script>
+
+  <script>
+    // Send a tracking event (optional)
+    if (window.plausible) plausible('github_repo_click');
+
+    // Redirect after a short delay (so the tracking fires)
+    setTimeout(() => {
+      window.location.href = 'https://mrmrtm.github.io/Asset-Manager/';
+    }, 300);
+  </script>
+</head>
+<body>
+  <p>Redirecting you to the GitHub repo...</p>
+</body>
+</html>
